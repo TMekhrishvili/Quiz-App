@@ -4,5 +4,7 @@ html, body, #root, .app, .main {
 }
   
 .app {
-    background-image: radial-gradient( rgb(55, 11, 143), rgb(0, 0, 0));
+    background-image: url("https://img3.goodfon.com/wallpaper/nbig/1/85/priroda-peyzazh-derevo-derevya-845.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }

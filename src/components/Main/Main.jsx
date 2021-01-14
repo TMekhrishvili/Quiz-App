@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import './main.css';
-import QuizLogo from '../../images/quiz.png';
+import Logo from '../../images/quiz.png';
+import SettingsIcon from '../../images/settings.svg';
 import { GlobalContext } from '../../context/GlobalState';
 import { fetchQuestions } from '../../services/fetchQuestions';
 import Question from '../Question/Question';
+import Settings from '../Settings/Settings/Settings';
 
 const TOTAL = 10;
 
@@ -12,15 +14,17 @@ const Main = () => {
     const [loading, setLoading] = useState(false);
     const [over, setOver] = useState(false);
     const [quizOver, setQuizOver] = useState(true);
+    const [start, setStart] = useState(true);
     const [number, setNumber] = useState(0);
     const [score, setScore] = useState(0);
     const [questions, setQuestions] = useState([]);
     const [answer, setAnswer] = useState([]);
 
     const { category, difficulty } = useContext(GlobalContext);
-
+    
     const startQuiz = async () => {
         setLoading(true);
+        setStart(false);
         setScore(0);
         setQuizOver(false);
         setOver(false);
@@ -45,6 +49,7 @@ const Main = () => {
         }
     }
 
+
     const nextQuestion = () => {
         const nextQuestion = number + 1;
         if (nextQuestion === TOTAL) {
@@ -57,7 +62,16 @@ const Main = () => {
 
     return (
         <div className="main">
-            <img className="logo" alt="logo" src={QuizLogo} />
+            <div className="settings">
+                <img className="settings-image" alt="settings" src={SettingsIcon} />
+            </div>
+            <img className="logo" alt="logo" src={Logo} />
+            {over && (
+                <div>
+                    <p className="score">Score: {score}</p>
+                </div>
+            )}
+            {start ? <Settings /> : null}
             {quizOver || answer.length === TOTAL + 1 ? (
                 <button
                     className="start"
@@ -66,11 +80,6 @@ const Main = () => {
                     {over ? <span>Play Again</span> : <span>Start Quiz</span>}
                 </button>
             ) : null}
-            {over && (
-                <div>
-                    <p className="score">Score: {score}</p>
-                </div>
-            )}
             {loading ? <img className="img" alt="loading" src="https://www.fogelstad.org/core/dependencies/loader.gif" /> : null}
             {!loading && !quizOver && (
                 <Question

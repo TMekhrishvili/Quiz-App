@@ -6,10 +6,9 @@
 
 .question {
     font-family: 'Acme', sans-serif;
-    font-size: 26px;
+    font-size: 22px;
     margin-top: 30px;
     margin-bottom: 15px;
-    color: white;
 }
 
 .questionsContainer {
@@ -19,11 +18,11 @@
 }
 
 .questionButton {
-    margin: 10px 0;
-    padding: 12px;
-    box-shadow: inset 0 0 15px rgb(55, 11, 143), 0 0 10px #000;
+    margin: 8px 0;
+    padding: 10px;
+    box-shadow: inset 0 0 15px rgb(206, 203, 99), 0 0 10px #000;
     font-family: 'Rubik', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     outline: none;
@@ -40,12 +39,18 @@
     background-color: #fcb2a5;
 }
 
+@media(max-width: 500px){
+    .card {
+        width: 80%;
+    }
+}
+
 @media(max-width: 975px){
     .question {
-        font-size: 30px;
+        font-size: 18px;
     }
 
     .questionButton {
-        font-size: 22px;
+        font-size: 14px;
     }
 }
