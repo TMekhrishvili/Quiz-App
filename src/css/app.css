@@ -1,0 +1,8 @@
+html, body, #root, .app, .main {
+    height: 100%;
+    width: 100%;
+}
+  
+.app {
+    background-image: radial-gradient( rgb(55, 11, 143), rgb(0, 0, 0));
+}
