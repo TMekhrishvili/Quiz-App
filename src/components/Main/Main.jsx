@@ -9,7 +9,6 @@ import Settings from '../Settings/Settings/Settings';
 const TOTAL = 10;
 
 const Main = () => {
-
     const [loading, setLoading] = useState(false);
     const [over, setOver] = useState(false);
     const [quizOver, setQuizOver] = useState(true);
@@ -19,7 +18,7 @@ const Main = () => {
     const [answer, setAnswer] = useState([]);
 
     const { category, difficulty } = useContext(GlobalContext);
-    
+
     const startQuiz = async () => {
         setLoading(true);
         setScore(0);
@@ -32,20 +31,16 @@ const Main = () => {
     }
 
     const checkAnswer = e => {
-        if (!quizOver) {
-            const answer = e.currentTarget.value;
-            const correct = questions[number].correct_answer === answer;
-            if (correct) setScore(prev => prev + 1);
-            const answerObject = {
-                question: questions[number].question,
-                answer,
-                correct,
-                correctAnswer: questions[number].correct_answer,
-            };
-            setAnswer(prev => [...prev, answerObject]);
-        }
+        const answer = e.currentTarget.value;
+        const correct = questions[number].correct_answer === answer;
+        if (correct) setScore(prev => prev + 1);
+        const answerObject = {
+            answer,
+            correctAnswer: questions[number].correct_answer,
+            correct,
+        };
+        setAnswer(prev => [...prev, answerObject]);
     }
-
 
     const nextQuestion = () => {
         const nextQuestion = number + 1;
@@ -62,20 +57,28 @@ const Main = () => {
             <img className="logo" alt="logo" src={Logo} />
             {over && (
                 <div>
-                    <p className="score">Score: {score}</p>
+                    <p className="score">Score: {score} / {TOTAL}</p>
                 </div>
             )}
             {quizOver ? <Settings /> : null}
-            {quizOver || answer.length === TOTAL + 1 ? (
+            {quizOver ?
                 <button
                     className="start"
-                    style={over ? { opacity: 1 } : { opacity: 1 }}
                     onClick={startQuiz}>
                     {over ? <span>Play Again</span> : <span>Start Quiz</span>}
-                </button>
-            ) : null}
+                </button> : null
+            }
             {loading ? <img className="img" alt="loading" src="https://www.fogelstad.org/core/dependencies/loader.gif" /> : null}
-            {!loading && !quizOver && (
+            {/* For the first render 'userAnswer' is undefined.
+                After select the answer callback function 'checkAnswer' creates object 
+                contains three properties:
+                answer: User-selected answer
+                correctAnswer: just real correct answer
+                correct: boolean type, true - if user anwers correctly and false - otherwise.
+                With this object as userAnswer, style is changed to correct and 
+                incorrect answers' buttons in 'Question' component.
+             */}
+            {!loading && !quizOver && questions.length > 0 && (
                 <Question
                     question={questions[number].question}
                     answers={questions[number].answers}
@@ -88,7 +91,7 @@ const Main = () => {
                 answer.length === number + 1 &&
                 number !== TOTAL ?
                 <button
-                    className="next opacity"
+                    className="next"
                     onClick={nextQuestion}
                 >Continue</button> : null
             }

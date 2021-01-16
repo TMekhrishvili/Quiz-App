@@ -15,7 +15,6 @@
 .start {    
     padding: 10px 16px;
     margin-top: 12px;
-    opacity: 0;
     border: none;
     box-shadow: inset 0 0 15px rgb(22, 126, 31), 0 0 30px #021101;
     border-radius: 10px;
@@ -70,7 +69,7 @@
 
 @media(max-width: 500px){
     .logo {
-        width: 150px;
+        width: 190px;
         margin-top: 50px;
     }
     .start {
